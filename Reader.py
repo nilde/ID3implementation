@@ -1,16 +1,16 @@
-from random import choice
+from random import choice,randint
 from collections import OrderedDict
 import numpy as np
 
 class Reader:
 	def __init__(self,filenameBD,filenameBDInfo,modeOfSubstitution=0):
-		self.__readedData=np.array([])
+		self.__readedData=[]
 		self.__dataPossibilities=OrderedDict()
 		self.__attributes=[]
 		self.__attributesDomains=[]
 		self.__totalExamples=0
-		self.__canUse=OrderedDict()
-		self.__cantUse=OrderedDict()
+		self.__canUse=[]
+		self.__cantUse=[]
 		self.__cleanedData=[]
 
 		self.__dataDB=open(filenameBD, 'r')
@@ -77,7 +77,7 @@ class Reader:
 		return True
 
 	def __deleteNoneValues(self):
-		self.__adultsData=[x for x in self.__adultsData if '?' not in x]
+		self.__readedData=[x for x in self.__readedData if '?' not in x]
 				
 	def __substituteNonesForMean(self):
 
@@ -146,8 +146,8 @@ class Reader:
 		return trainSet,testSet
 
 	def leaveOneOut(self):
-		trainSet=self.__adultsData[:]
-		testValue=randint(0, len(self.__totalAdults)-1)
+		trainSet=self.__readedData[:]
+		testValue=randint(0, self.__totalExamples-1)
 		testSet=trainSet[testValue][:]
 
 		del trainSet[testValue]
@@ -156,7 +156,8 @@ class Reader:
 
 	def __definitiveCleaning(self):
 		for attribute in self.__canUse:
-			self.attributes.index(attribute)
+			self.__attributes.index(attribute)
+
 
 
 

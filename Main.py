@@ -40,18 +40,16 @@ def main():
 	modeOfSubstition=0
 
 	reader=Reader.Reader('mushroom.data','mushroomInfo.data',modeOfSubstition)
-	print reader.getData()
 
 	#Different methods 
-	testSet,trainSet=reader.leaveOneOut()
+	trainSet,testSet=reader.leaveOneOut()
 	#testSet,trainSet=reader.crossValidation(10)
 	print testSet
-	print trainSet
 
 	if testSet[0] ==[-1]:
 		print "Numero de particiones erroneo"
 	else:
-		fullTree=TreeGeneration(testSet,reader.attributesDomains,reader.attributesDomains[-1])
+		fullTree=treeGeneration(testSet,reader.attributesDomains,reader.attributesDomains[-1])
 		print "Generacion del arbol completada"
 
 if __name__=='__main__':

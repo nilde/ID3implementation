@@ -41,12 +41,12 @@ def calcGain(data,attributeIndex):
     diffValues={}
     for entry in data:
         if (diffValues.has_key(entry[i])):
-            diffValues[entry[i]] += 1.0
+            diffValues[entry[i]] += 1
         else:
-            diffValues[entry[i]] = 1.0
+            diffValues[entry[i]] = 1
 
     for val in diffValues.keys():
-        valProb        = diffValues[val] / sum(diffValues.values())
+        valProb        = 1.0*diffValues[val] / sum(diffValues.values())
         dataSubset     = [entry for entry in data if entry[attributeIndex] == val]
         subsetEntropy += valProb * entropy(attributes, dataSubset, targetAttr)
     
@@ -77,8 +77,10 @@ def StoppingCriterion(data):
     return True
 
 def dataSeparatedByParameter():
+
     pass
 def splitCriterion():
+
     pass
 
 
