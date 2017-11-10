@@ -16,6 +16,14 @@ def treeGeneration(data,atributeList,objectiveAtribute,parent=None):
 
 	return Tree
 
+	'''
+	StoppingCriterion STATUS: DONE
+	assignBestLabel STATUS: DONE
+	SplitCriterion STATUS: TODO
+	dataSeparatedByParameter STATUS: TODO
+
+	'''
+
 
 def prunningTree(Tree):
 	#TODO

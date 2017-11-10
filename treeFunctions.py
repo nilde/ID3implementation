@@ -1,5 +1,5 @@
 import math
-def chooseBestAttribute(allAtributes,allData):
+def chooseBestAttribute(allAtributes,allData,listOfValidsAttributes):
     attributeWithMaxGain=-1
     maxGain=0
     #Last column is equivalent to the result
@@ -7,7 +7,7 @@ def chooseBestAttribute(allAtributes,allData):
 
     quantityOfAttributes=len(allAtributes[:-1])
     for indexAttribute in range(quantityOfAttributes):
-        if attributeIsValid(indexAttribute):
+        if attributeIsValid(indexAttribute,listOfValidsAttributes):
             attributeValues=extractDataByAttribute(indexAttribute)
             attributeGain=calcGain(attributeValues,result)
             if attributeGain > maxGain:
@@ -17,8 +17,8 @@ def chooseBestAttribute(allAtributes,allData):
     return attributeWithMaxGain
 
 
-def attributeIsValid(index,listOfValids):
-    return index in listOfValids
+def attributeIsValid(index,listOfValidsAttributes):
+    return index in listOfValidsAttributes
 
 
 #Extracts all values from a choosen characteristic
@@ -39,11 +39,7 @@ def calcGain(data,attributeIndex):
     #TODO
     #Re-write that function because we use other structures
     diffValues={}
-    for entry in data:
-        if (diffValues.has_key(entry[i])):
-            diffValues[entry[i]] += 1
-        else:
-            diffValues[entry[i]] = 1
+    diffValues=genDiffValues(data,diffValues)
 
     for val in diffValues.keys():
         valProb        = 1.0*diffValues[val] / sum(diffValues.values())
@@ -55,16 +51,20 @@ def calcGain(data,attributeIndex):
 
 def calcEntropy(data,attributeIndex):
     diffValues={}
-    for entry in data:
-        if (diffValues.has_key(entry[attributeIndex])):
-            diffValues[entry[attributeIndex]] += 1
-        else:
-            diffValues[entry[attributeIndex]]  = 1
+    diffValues=genDiffValues(data,diffValues)
 
     for freq in diffValues.values():
         attributeEntropy += (-1.0*freq/len(data)) * math.log(1.0*freq/len(data), 2) 
 
     return attributeEntropy
+
+def genDiffValues(data,diffValues):
+    for entry in data:
+        if (diffValues.has_key(entry[attributeIndex])):
+            diffValues[entry[attributeIndex]] += 1
+        else:
+            diffValues[entry[attributeIndex]]  = 1
+    return diffValues
 
 def StoppingCriterion(data):
     #All values to classify gives the same result 
@@ -76,11 +76,15 @@ def StoppingCriterion(data):
             return False
     return True
 
+def assignBestLabel(data):
+    #Some doubts about that works how i think that it will
+    return data[0][-1]
+
+
 def dataSeparatedByParameter():
-
     pass
-def splitCriterion():
 
+def splitCriterion():
     pass
 
 
