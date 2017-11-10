@@ -9,8 +9,8 @@ class Reader:
 		self.__attributes=[]
 		self.__attributesDomains=[]
 		self.__totalExamples=0
-		self.__canUse=[]
-		self.__cantUse=[]
+		self.canUse=[]
+		self.cantUse=[]
 		self.__cleanedData=[]
 
 		self.__dataDB=open(filenameBD, 'r')
@@ -36,7 +36,10 @@ class Reader:
 	def __cleanReadedData(self,eachData):
 		eachData.replace(' ', '')
 		cleanedData=eachData.split(',')
-		cleanedData[-1]=cleanedData[-1][0]
+
+		#Delete \n char
+		cleanedData[-1]=cleanedData[-1][0:-1]
+
 		return cleanedData
 
 	def __chargeDataInfo(self):
@@ -47,17 +50,17 @@ class Reader:
 
 
 		self.__attributes=self.eachcharacteristicInfo[0]
-		self.__attributes[-1]=self.__attributes[-1][0:-1]
+		print self.__attributes[-1]
 		self.__attributesDomains=self.eachcharacteristicInfo[1]
-		self.__attributesDomains[-1]=self.__attributesDomains[-1][0:-1]
+		print self.__attributesDomains[-1]
 		self.__generateTypeOfData()
 
 	def __generateTypeOfData(self):
 		for attribute,domain in zip(self.__attributes,self.__attributesDomains):
 			if domain == 'continuous':
-				self.__cantUse.append(attribute)
+				self.cantUse.append(attribute)
 			else:
-				self.__canUse.append(attribute)
+				self.canUse.append(attribute)
 
 	def __cleanData(self,modeOfSubstitution=0):
 		#At this moment just work with deleting attributes with not acceptable values
@@ -155,7 +158,7 @@ class Reader:
 		return trainSet,testSet
 
 	def __definitiveCleaning(self):
-		for attribute in self.__canUse:
+		for attribute in self.canUse:
 			self.__attributes.index(attribute)
 
 

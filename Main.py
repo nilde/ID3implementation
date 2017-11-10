@@ -57,7 +57,8 @@ def main():
 	if testSet[0] ==[-1]:
 		print "Numero de particiones erroneo"
 	else:
-		fullTree=treeGeneration(testSet,reader.attributesDomains,reader.attributesDomains[-1])
+		print reader.canUse
+		fullTree=treeGeneration(testSet,reader.canUse,reader.canUse[-1])
 		print "Generacion del arbol completada"
 
 if __name__=='__main__':
