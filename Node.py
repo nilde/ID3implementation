@@ -9,7 +9,12 @@ class Node:
         self.differentCharacteristics=dataCharacteristics
         self.ownData=dataNode
         self.isLeave=False
+        self.level=0
         self.classificationFinal=None
+        self.root=self.parent.root
+
+    def setLevel(self):
+       self.level = self.parent.level+1
 
 
     #TODO define some methods

@@ -1,5 +1,5 @@
 import math
-def chooseBestAttribute(allAtributes,allData,listOfValidsAttributes):
+def splitCriterionID3(allAtributes,allData,listOfValidsAttributes):
     attributeWithMaxGain=-1
     maxGain=0
     #Last column is equivalent to the result
@@ -10,15 +10,48 @@ def chooseBestAttribute(allAtributes,allData,listOfValidsAttributes):
         if attributeIsValid(indexAttribute,listOfValidsAttributes):
             attributeValues=extractDataByAttribute(indexAttribute)
             attributeGain=calcGain(attributeValues,result)
+
             if attributeGain > maxGain:
                 maxGain=attributeGain
                 attributeWithMaxGain=attribute
 
-    return attributeWithMaxGain
+    del listOfValidsAttributes[attributeWithMaxGain]
+    return attributeWithMaxGain,listOfValidsAttributes
+
+def splitCriterionID45(allAtributes,allData,listOfValidsAttributes):
+    attributeWithMaxGainRatio=0
+    maxGainRatio=0
+    #Last column is equivalent to the result
+    result=extractDataByAttribute(-1)
+
+    quantityOfAttributes=len(allAtributes[:-1])
+    for indexAttribute in range(quantityOfAttributes):
+        if attributeIsValid(indexAttribute,listOfValidsAttributes):
+            attributeValues=extractDataByAttribute(indexAttribute)
+            attributeGain=calcGain(attributeValues,result)
+            diffValuesDict=genDiffValues(allData,attributeWithMaxGain)
+            totalValues
+            attributeSplitInfo=calcSplitinfo(diffValues,totalValues)
+            attributeGainRatio=attributeGain/attributeSplitInfo
+
+            if attributeGainRatio > maxGainRatio:
+                maxGainRatio=attributeGainRatio
+                attributeWithMaxGainRatio=attribute
 
 
-def attributeIsValid(index,listOfValidsAttributes):
-    return index in listOfValidsAttributes
+    del listOfValidsAttributes[attributeWithMaxGain]
+    return attributeWithMaxGain,listOfValidsAttributes
+
+def calcSplitInfo(diffValues,totalValues):
+    totalSum=0
+    for sv in diffValues.keys():
+        totalSum+=(1.0*sv/totalValues)* math.log(1.0*sv/totalValues,2)
+    totalSum*= -1.0
+
+    return totalSum
+
+def attributeIsValid(attribute,listOfValidsAttributes):
+    return attribute in listOfValidsAttributes
 
 
 #Extracts all values from a choosen characteristic
@@ -84,7 +117,5 @@ def assignBestLabel(data):
 def dataSeparatedByParameter():
     pass
 
-def splitCriterion():
-    pass
 
 
