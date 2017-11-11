@@ -1,5 +1,6 @@
 import Reader
 import Node
+import Test
 
 
 def treeGenerationID3(data,attributeList,objectiveAttribute,parent=None):
@@ -12,7 +13,7 @@ def treeGenerationID3(data,attributeList,objectiveAttribute,parent=None):
 	else:
 		Tree.label,newAttributeList=TreeFunctions.SplitCriterionID3(data,attributeList,objectiveAttribute)
 		for eachPossibleValue in attributeList[Tree.label]:
-			subTree=TreeGeneration(TreeFunctions.dataSeparatedByParameter(data,eachPossibleValue),newAttributeList,objectiveAttribute,Tree)
+			subTree=TreeGeneration(TreeFunctions.dataSeparatedByParameter(data,eachPossibleValue,Tree.label),newAttributeList,objectiveAttribute,Tree)
 			Tree.child[eachPossibleValue]=subTree.root
 
 	return Tree
@@ -27,7 +28,7 @@ def treeGenerationID45(data,attributeList,objectiveAttribute,parent=None):
 	else:
 		Tree.label,newAttributeList=TreeFunctions.SplitCriterionID45(data,attributeList,objectiveAttribute)
 		for eachPossibleValue in attributeList[Tree.label]:
-			subTree=TreeGeneration(TreeFunctions.dataSeparatedByParameter(data,eachPossibleValue),newAttributeList,objectiveAttribute,Tree)
+			subTree=TreeGeneration(TreeFunctions.dataSeparatedByParameter(data,eachPossibleValue,Tree.label),newAttributeList,objectiveAttribute,Tree)
 			Tree.child[eachPossibleValue]=subTree.root
 
 	return Tree
@@ -36,7 +37,7 @@ def treeGenerationID45(data,attributeList,objectiveAttribute,parent=None):
 	StoppingCriterion STATUS: DONE
 	assignBestLabel STATUS: DONE
 	SplitCriterion STATUS: DONE
-	dataSeparatedByParameter STATUS: TODO
+	dataSeparatedByParameter STATUS: DONE
 
 	'''
 
@@ -57,12 +58,14 @@ def genTree(node,listNodes):
 def printTree(Tree):
 	listNodes=[]
 	genTree(Tree,listNodes)
-	#Some treatement to clean the list generated
+
+	#Some treatement to clean the list generated because we made an postorder exploratio and we need to apply some changes to visualize correctly the tree 
 	cleanGeneratedList(listNodes)
 
+	print listNodes
+
 def cleanGeneratedList(listNodes):
-
-
+	#TODO
 
 def lastNode(Tree):
 	actualNode=Tree.root

@@ -1,6 +1,7 @@
 import math
 def splitCriterionID3(allAtributes,allData,listOfValidsAttributes):
-    attributeWithMaxGain=-1
+    attributeWi
+    thMaxGain=-1
     maxGain=0
     #Last column is equivalent to the result
     result=extractDataByAttribute(-1)
@@ -21,6 +22,7 @@ def splitCriterionID3(allAtributes,allData,listOfValidsAttributes):
 def splitCriterionID45(allAtributes,allData,listOfValidsAttributes):
     attributeWithMaxGainRatio=0
     maxGainRatio=0
+
     #Last column is equivalent to the result
     result=extractDataByAttribute(-1)
 
@@ -30,7 +32,7 @@ def splitCriterionID45(allAtributes,allData,listOfValidsAttributes):
             attributeValues=extractDataByAttribute(indexAttribute)
             attributeGain=calcGain(attributeValues,result)
             diffValuesDict=genDiffValues(allData,attributeWithMaxGain)
-            totalValues
+            totalValues=len(allData)
             attributeSplitInfo=calcSplitinfo(diffValues,totalValues)
             attributeGainRatio=attributeGain/attributeSplitInfo
 
@@ -104,9 +106,11 @@ def StoppingCriterion(data):
 
     numValues=len(data[0])
     valueAll=data[0][-1]
+
     for eachData in data:
         if eachData[-1] != valueAll:
             return False
+
     return True
 
 def assignBestLabel(data):
@@ -114,8 +118,16 @@ def assignBestLabel(data):
     return data[0][-1]
 
 
-def dataSeparatedByParameter():
-    pass
+def dataSeparatedByParameter(data,specificValueOfAttribute,attributeName):
+    #Look if modifies the tuple unintentionally
+    indexOfAttribute=data.index(attributeName)
+    dataExtractedFromAttribute=[]
+    for eachData in data:
+        if eachData[indexOfAttribute]==specificValueOfAttribute:
+            dataExtractedFromAttribute.append(eachData)
+
+    return dataExtractedFromAttribute
+
 
 
 
