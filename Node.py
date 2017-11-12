@@ -1,45 +1,25 @@
-#Reescribir la clase para que sea interBD
-
 class Node:
-	def __init__(self,parent,atribute,dataNode,actualEntropy,atributeName,isLeave=False):
-		self.parent=parent
-        self.connectionName=atributeName
+    def __init__(self,parent,dataNode,actualEntropy,connectionName,isLeave=False,root=None,finalClassification='No'):
+        self.parent=parent
         self.childs={}
+        self.dataNode=dataNode
         self.actualEntropy=actualEntropy
-        self.differentCharacteristics=dataCharacteristics
-        self.ownData=dataNode
         self.isLeave=False
+        self.connectionName=connectionName
         self.level=0
-        self.classificationFinal=None
-        self.root=self.parent.root
+        self.root=root
+        self.label=None
+        self.finalClassification=finalClassification
+        self.setLevel()
 
     def setLevel(self):
-       self.level = self.parent.level+1
+        if self.parent == None:
+            self.level=0
+        else:
+            self.level = self.parent.level+1
 
+    def setRoot(self):
+        self.root=self.parent.root
 
-    #TODO define some methods
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		
-
+    def autoParent(self):
+        self.parent=self
